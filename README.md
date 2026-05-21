@@ -1,9 +1,8 @@
-# 🚀 padroes-projeto-spring
+#  🚀 padroes-projeto-spring
 
-API REST desenvolvida com Spring Boot para gerenciamento de clientes, utilizando integração com ViaCEP,
-banco H2 Database, documentação Swagger/OpenAPI e boas práticas de arquitetura em camadas.
+API REST desenvolvida com Spring Boot para gerenciamento de clientes, utilizando integração com ViaCEP, banco H2 Database, documentação Swagger/OpenAPI e boas práticas de arquitetura em camadas.
 
-# 📚 Tecnologias utilizadas
+#  📚 Tecnologias utilizadas
 Java 17
 Spring Boot 3
 Spring Web
@@ -25,11 +24,12 @@ Mockito
 | Spring Cloud | 2023.0.3 |
 | Maven | 3.9+ |
 
----
+#  🏗️ Arquitetura do projeto
 
-# 🏗️ Arquitetura do projeto
+O projeto foi estruturado seguindo boas práticas de desenvolvimento backend:
 
-ontroller → Service → Repository → Database
+Controller → Service → Repository → Database
+
 Além disso, utiliza alguns padrões de projeto:
 
 Strategy
@@ -41,35 +41,36 @@ Repository Pattern
 # 📁 Estrutura do projeto
 src/main/java/com/maria/padroes_projeto_spring
 │
+├── PadroesProjetoSpringApplication.java
+│
 ├── client
+│   └── ViaCepClient.java
+│
 ├── controller
+│   └── ClienteRestController.java
+│
 ├── dto
+│   └── ViaCepResponseDTO.java
+│
 ├── exception
+│   └── GlobalExceptionHandler.java
+│
 ├── model
+│   ├── Cliente.java
+│   └── Endereco.java
+│
 ├── repository
-├── service
-# 🚀 Estrutura de testes
-src/test/java/com/maria/padroes_projeto_spring
-│
-├── controller
-│   └── ClienteRestControllerTest.java
+│   ├── ClienteRepository.java
+│   └── EnderecoRepository.java
 │
 ├── service
-│   └── ClienteServiceImplTest.java
-│
-└── integration
-└── ClienteIntegrationTest.java
-
-├── target/
-├── .gitignore
-├── HELP.md
-├── pom.xml
-│
-│
-
-
-
-# 🚀 Funcionalidades
+│   ├── ClienteService.java
+│   ├── ViaCepService.java
+│   │
+│   └── impl
+│       ├── ClienteServiceImpl.java
+│       └── ViaCepServiceImpl.java
+#  🚀 Funcionalidades
 
 ✅ Cadastro de clientes
 ✅ Atualização de clientes
@@ -85,156 +86,70 @@ src/test/java/com/maria/padroes_projeto_spring
 ✅ Tratamento de erros
 ✅ Testes unitários
 
-
-
 # 🔗 Integração ViaCEP
 
 Ao cadastrar um cliente com CEP válido, a API consulta automaticamente o ViaCEP para preencher os dados do endereço.
 
 Exemplo
 {
-"nome": "Maria",
-"endereco": {
-"cep": "01001000"
-}
-}
-
-
-
-
-# 📌 Executar Projeto
-
-## Rodar aplicação
-
-
-mvn spring-boot:run
-
-# 📌 Executar Testes
-mvn test
-
-test
-# 📌 Gerar Cobertura
-mvn clean test
-
-Relatório:
-target/site/jacoco/index.html
-
-
-📌 Swagger
-
-Acesse:
-
-http://localhost:8081/swagger-ui.html
-
-ou
-
-http://localhost:8081/swagger-ui/index.html
-
-📌 Endpoints da API
-Método	Endpoint	Descrição
-GET	/clientes	Lista todos os clientes
-GET	/clientes/{id}	Busca cliente por ID
-POST	/clientes	Cadastra cliente
-PUT	/clientes/{id}	Atualiza cliente
-DELETE	/clientes/{id}	Remove cliente
-GET	/clientes/buscar?nome=	Busca cliente por nome
-
-# 🚀 AGORA TESTE
-POST
-{
   "nome": "Maria",
   "endereco": {
     "cep": "01001000"
   }
 }
+# 🚀 Como executar o projeto
 
-✅ Resultado esperado
+Clone o repositório
+git clone https://github.com/MariaaPcsa/padroes-projeto-spring.git
+Acesse a pasta
+cd padroes-projeto-spring
+Execute o projeto
+Windows
+mvnw spring-boot:run
+Linux/Mac
+./mvnw spring-boot:run
 
-Status:
+#  🌐 URLs importantes
 
-201 Created
-🚀 UPDATE
-{
-  "nome": "Maria Atualizada",
-  "endereco": {
-    "cep": "01310930"
-  }
-}
+Swagger UI
+http://localhost:8081/swagger-ui.html
+ou
+http://localhost:8081/swagger-ui/index.html
 
-✅ Resultado esperado
+OpenAPI JSON
+http://localhost:8081/v3/api-docs
 
-200 OK
-🚀 DELETE
-204 No Content
+#  H2 Console
+http://localhost:8081/h2-console
 
-🚀LISTAR CLIENTES
-GET
-ID: 1
-✅ Resultado esperado
-Status:
-200 OK
-Body:
+# 🔐 Configuração H2
+JDBC URL
+jdbc:h2:mem:testdb
+User
+sa
+Password
+(deixe vazio)
 
-{
-  "id": 2,
-  "nome": "Maria Atualizada",
-  "endereco": {
-    "cep": "01310930",
-    "logradouro": "Avenida Paulista",
-    "complemento": "2100",
-    "bairro": "Bela Vista",
-    "localidade": "São Paulo",
-    "uf": "SP",
-    "ibge": "3550308",
-    "gia": "1004",
-    "ddd": "11",
-    "siafi": "7107"
-  }
-}
-    
-    }
-]   
+#  🚀 CONSULTAS SQL
 
-      
-                 
-
-# 📌 H2 Console
-
-Acesse:
-
-http://localhost:8080/h2-console
-Configuração H2
-Campo	Valor
-JDBC URL	jdbc:h2:mem:testdb
-User	sa
-Password	vazio
-
-Ver estrutura da tabela
-CLIENTE
-Buscar todos clientes
-SELECT * FROM CLIENTES 
-
-ENDERECO
-Buscar todos endereços
-SELECT * FROM ENDERECOS 
-
-Buscar cliente por ID
-
+#  ✅ Buscar todos clientes
+SELECT * FROM CLIENTES;
+# ✅ Buscar todos endereços
+SELECT * FROM ENDERECOS;
+# ✅ Buscar cliente por ID
 SELECT * 
 FROM CLIENTES
 WHERE ID = 1;
-
-Buscar por nome
+# ✅ Buscar por nome
 SELECT *
 FROM CLIENTES
 WHERE NOME = 'Maria';
-
-Buscar nomes parecidos
+# ✅ Buscar nomes parecidos
 SELECT *
 FROM CLIENTES
 WHERE NOME LIKE '%Maria%';
 
-Ver cliente + endereço
+# ✅ Ver cliente + endereço
 SELECT
     c.ID,
     c.NOME,
@@ -247,41 +162,106 @@ FROM CLIENTES c
 INNER JOIN ENDERECOS e
 ON c.ENDERECO_CEP = e.CEP;
 
+# 📌 Endpoints da API
 
+Método	Endpoint	Descrição  
+GET	/clientes	Lista todos os clientes  
+GET	/clientes/{id}	Busca cliente por ID  
+POST	/clientes	Cadastra cliente  
+PUT	/clientes/{id}	Atualiza cliente  
+DELETE	/clientes/{id}	Remove cliente  
+GET	/clientes/buscar?nome=	Busca cliente por nome  
 
+#  📦 Exemplo de cadastro
+Request
+{
+  "nome": "Maria",
+  "endereco": {
+    "cep": "01001000"
+  }
+}
+Response
+{
+  "id": 1,
+  "nome": "Maria",
+  "endereco": {
+    "cep": "01001000",
+    "logradouro": "Praça da Sé",
+    "bairro": "Sé",
+    "localidade": "São Paulo",
+    "uf": "SP"
+  }
+}
 
-# Melhorias Futuras
-Spring Security
-JWT
+# 🧪 Executando testes
+mvn test
+
+# 📊 Relatório Jacoco
+
+Após executar os testes:
+
+target/site/jacoco/index.html
+
+#  🚀 Cenários de Teste
+
+ID	Cenário	Método
+CT-001	Listar clientes	GET
+CT-002	Buscar cliente por ID	GET
+CT-003	Cadastrar cliente válido	POST
+CT-004	Atualizar cliente	PUT
+CT-005	Deletar cliente	DELETE
+CT-006	Validar nome obrigatório	POST
+CT-007	Validar CEP inválido	POST
+CT-008	Buscar cliente inexistente	GET
+
+#  🛠️ Melhorias implementadas
+
+Refatoração da arquitetura
+Correção de serialização JSON
+Tratamento de exceções
+DTO para integração externa
+Organização em camadas
+Melhorias no Swagger
+Validações de entrada
+Padronização REST
+Ajustes de status HTTP
+Configuração profissional Maven
+
+# DICAS DE COMMIT
+
+🚀 TIPOS MAIS USADOS
+Tipo	Uso
+feat	nova funcionalidade
+fix	correção
+refactor	refatoração
+test	testes
+docs	documentação
+style	formatação
+chore configuração
+
+# 🚀 COMO FICARIA O HISTÓRICO
+feat: criação inicial da API de gerenciamento de clientes
+feat: integração com ViaCEP usando OpenFeign
+feat: implementação do CRUD de clientes
+fix: correção da serialização JSON
+docs: adiciona documentação Swagger
+test: adiciona testes unitários
+
+#  📌 Futuras melhorias
+
+Autenticação JWT
 Docker
 PostgreSQL
-CI/CD
-Resilience4j
+Testes de integração
+Paginação
 Logs estruturados
+Deploy cloud
+CI/CD com GitHub Actions
 
-
----
-
-# 🚀 Estrutura ideal final
-
-```txt id="kzbw8w"
-padroes-projeto-spring/
-│
-├── .gitignore
-├── HELP.md
-├── pom.xml
-│
-├── src/
-│
-├── target/
-
-
-
-📌 Autor
+# 👩‍💻 Desenvolvido por
 
 Maria Correia
 
+📄 Licença
 
-
-
-
+Este projeto foi desenvolvido para fins educacionais e de portfólio.
