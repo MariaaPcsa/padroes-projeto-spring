@@ -1,16 +1,20 @@
-# 🚀 Projeto Padrões Spring Boot
+# 🚀 padroes-projeto-spring
 
-API REST desenvolvida com:
+API REST desenvolvida com Spring Boot para gerenciamento de clientes, utilizando integração com ViaCEP,
+banco H2 Database, documentação Swagger/OpenAPI e boas práticas de arquitetura em camadas.
 
-- Spring Boot
-- Spring Data JPA
-- OpenFeign
-- H2 Database
-- Swagger/OpenAPI
-- JUnit 5
-- Mockito
-
----
+# 📚 Tecnologias utilizadas
+Java 17
+Spring Boot 3
+Spring Web
+Spring Data JPA
+Spring Validation
+OpenFeign
+H2 Database
+Swagger/OpenAPI
+Maven
+JUnit 5
+Mockito
 
 # 📌 Tecnologias
 
@@ -23,32 +27,119 @@ API REST desenvolvida com:
 
 ---
 
+# 🏗️ Arquitetura do projeto
+
+ontroller → Service → Repository → Database
+Além disso, utiliza alguns padrões de projeto:
+
+Strategy
+Facade
+Singleton
+DTO
+Repository Pattern
+
+# 📁 Estrutura do projeto
+src/main/java/com/maria/padroes_projeto_spring
+│
+├── client
+├── controller
+├── dto
+├── exception
+├── model
+├── repository
+├── service
+# 🚀 Estrutura de testes
+src/test/java/com/maria/padroes_projeto_spring
+│
+├── controller
+│   └── ClienteRestControllerTest.java
+│
+├── service
+│   └── ClienteServiceImplTest.java
+│
+└── integration
+└── ClienteIntegrationTest.java
+
+├── target/
+├── .gitignore
+├── HELP.md
+├── pom.xml
+│
+│
+
+
+
+# 🚀 Funcionalidades
+
+✅ Cadastro de clientes
+✅ Atualização de clientes
+✅ Remoção de clientes
+✅ Busca por ID
+✅ Busca de todos os clientes
+✅ Busca por nome
+✅ Integração automática com ViaCEP
+✅ Persistência de endereços
+✅ Documentação Swagger
+✅ Banco H2
+✅ Validações com Bean Validation
+✅ Tratamento de erros
+✅ Testes unitários
+
+
+
+# 🔗 Integração ViaCEP
+
+Ao cadastrar um cliente com CEP válido, a API consulta automaticamente o ViaCEP para preencher os dados do endereço.
+
+Exemplo
+{
+"nome": "Maria",
+"endereco": {
+"cep": "01001000"
+}
+}
+
+
+
+
 # 📌 Executar Projeto
 
 ## Rodar aplicação
 
-```bash
+
 mvn spring-boot:run
 
-
-
-
-📌 Executar Testes
+# 📌 Executar Testes
 mvn test
 
 test
-📌 Gerar Cobertura
+# 📌 Gerar Cobertura
 mvn clean test
 
 Relatório:
-
 target/site/jacoco/index.html
+
+
 📌 Swagger
 
 Acesse:
 
 http://localhost:8081/swagger-ui.html
-🚀 AGORA TESTE
+
+ou
+
+http://localhost:8081/swagger-ui/index.html
+
+📌 Endpoints da API
+Método	Endpoint	Descrição
+GET	/clientes	Lista todos os clientes
+GET	/clientes/{id}	Busca cliente por ID
+POST	/clientes	Cadastra cliente
+PUT	/clientes/{id}	Atualiza cliente
+DELETE	/clientes/{id}	Remove cliente
+GET	/clientes/buscar?nome=	Busca cliente por nome
+
+# 🚀 AGORA TESTE
 POST
 {
   "nome": "Maria",
@@ -56,6 +147,7 @@ POST
     "cep": "01001000"
   }
 }
+
 ✅ Resultado esperado
 
 Status:
@@ -68,7 +160,9 @@ Status:
     "cep": "01310930"
   }
 }
+
 ✅ Resultado esperado
+
 200 OK
 🚀 DELETE
 204 No Content
@@ -80,6 +174,7 @@ ID: 1
 Status:
 200 OK
 Body:
+
 {
   "id": 2,
   "nome": "Maria Atualizada",
@@ -103,7 +198,7 @@ Body:
       
                  
 
-📌 H2 Console
+# 📌 H2 Console
 
 Acesse:
 
@@ -155,46 +250,7 @@ ON c.ENDERECO_CEP = e.CEP;
 
 
 
-📌 Estrutura do Projeto
-src/main/java/com/maria/padroes_projeto_spring
-│
-├── client
-├── controller
-├── dto
-├── exception
-├── model
-├── repository
-├── service
-🚀 Estrutura de testes
-src/test/java/com/maria/padroes_projeto_spring
-│
-├── controller
-│   └── ClienteRestControllerTest.java
-│
-├── service
-│   └── ClienteServiceImplTest.java
-│
-└── integration
-    └── ClienteIntegrationTest.java
-
-├── target/
-├── .gitignore
-├── HELP.md
-├── pom.xml
-│
-│
-
-📌 Funcionalidades
-
-✅ CRUD de clientes
-✅ Integração com ViaCEP
-✅ Validação de dados
-✅ Swagger/OpenAPI
-✅ Testes unitários
-✅ Testes de integração
-✅ Cobertura com JaCoCo
-
-📌 Melhorias Futuras
+# Melhorias Futuras
 Spring Security
 JWT
 Docker
@@ -202,7 +258,6 @@ PostgreSQL
 CI/CD
 Resilience4j
 Logs estruturados
-
 
 
 ---
@@ -226,32 +281,6 @@ padroes-projeto-spring/
 
 Maria Correia
 
-
-http://localhost:8080/swagger-ui.html
-
-🚀 AGORA EXECUTE
-Limpar projeto
-mvn clean
-Baixar dependências novamente
-mvn clean install
-Rodar testes
-mvn test
-
-
-Faça:
-
-mvn dependency:purge-local-repository
-
-Depois:
-
-mvn clean install
-
-
-🚀 URLs do projeto
-Swagger
-http://localhost:8080/swagger-ui.html
-H2
-http://localhost:8080/h2-console
 
 
 

@@ -79,3 +79,16 @@ failsafe-reports/
 *.mv.db
 *.trace.db
 HELP.md
+target/
+
+.idea/
+
+.vscode/
+
+*.iml
+
+*.log
+
+.DS_Store
+
+.env
