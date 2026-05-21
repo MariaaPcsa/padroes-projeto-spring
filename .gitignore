@@ -1,0 +1,81 @@
+# =========================
+# MAVEN
+# =========================
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# =========================
+# SPRING TOOL SUITE (STS)
+# =========================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# =========================
+# INTELLIJ IDEA
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# =========================
+# NETBEANS
+# =========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+build/
+
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# =========================
+# VS CODE
+# =========================
+.vscode/
+
+# =========================
+# LOGS
+# =========================
+*.log
+
+# =========================
+# OS FILES
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# ENV
+# =========================
+.env
+
+# =========================
+# JACOCO
+# =========================
+jacoco.exec
+
+# =========================
+# TEST REPORTS
+# =========================
+surefire-reports/
+failsafe-reports/
+
+# =========================
+# H2 DATABASE
+# =========================
+*.mv.db
+*.trace.db
+HELP.md
