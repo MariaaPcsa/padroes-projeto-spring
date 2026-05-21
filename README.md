@@ -104,10 +104,16 @@ git clone https://github.com/MariaaPcsa/padroes-projeto-spring.git
 Acesse a pasta
 cd padroes-projeto-spring
 Execute o projeto
-Windows
+
+#  🚀 AGORA EXECUTE
+mvn clean install
+#  Windows
 mvnw spring-boot:run
-Linux/Mac
+
+#  Linux/Mac
 ./mvnw spring-boot:run
+
+
 
 #  🌐 URLs importantes
 
