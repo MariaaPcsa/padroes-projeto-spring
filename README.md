@@ -284,7 +284,4 @@ Maria Correia
 
 
 
-✅ Commit recomendado
-git add .
-git commit -m "build: corrige versões incompatíveis do Spring Boot e Spring Cloud"
-git commit -m "build: adiciona dependências de testes Spring Boot"
+
