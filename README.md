@@ -19,7 +19,7 @@ Mockito
 
 | Tecnologia | Versão |
 |---|---|
-| Java | 17 |
+| Java | 21 |
 | Spring Boot | 3.3.5 |
 | Spring Cloud | 2023.0.3 |
 | Maven | 3.9+ |
