@@ -37,7 +37,7 @@ public class ClienteRestController {
             summary = "Buscar todos os clientes",
             description = "Retorna todos os clientes cadastrados"
     )
-
+    @ApiResponse(responseCode = "200", description = "OK")
     public ResponseEntity<List<Cliente>> buscarTodos() {
 
         return ResponseEntity.ok(

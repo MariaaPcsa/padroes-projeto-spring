@@ -2,6 +2,7 @@ package com.maria.padroes_projeto_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
@@ -16,20 +17,24 @@ import java.util.Objects;
         "hibernateLazyInitializer",
         "handler"
 })
+@Schema(description = "Representa um cliente")
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "ID do cliente", example = "1")
     private Long id;
 
     @NotBlank
     @Size(min = 3, max = 100)
     @Column(nullable = false, length = 100)
+    @Schema(description = "Nome do cliente", example = "Maria Oliveira")
     private String nome;
 
     @ManyToOne(fetch = FetchType.EAGER)
 
     @JoinColumn(name = "endereco_cep")
+    @Schema(description = "Endereço do cliente")
     private Endereco endereco;
 
     public Cliente() {

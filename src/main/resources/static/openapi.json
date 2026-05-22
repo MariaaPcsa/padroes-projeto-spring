@@ -1,0 +1,291 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API de Clientes",
+    "description": "Documentação da API para gerenciamento de clientes",
+    "contact": {
+      "name": "Equipe de Desenvolvimento",
+      "email": "contato@empresa.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Servidor local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Clientes",
+      "description": "API para gerenciamento de clientes"
+    }
+  ],
+  "paths": {
+    "/clientes/{id}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Buscar cliente por ID",
+        "description": "Retorna um cliente específico",
+        "operationId": "buscarPorId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Atualizar cliente",
+        "description": "Atualiza um cliente existente",
+        "operationId": "atualizar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Deletar cliente",
+        "description": "Remove um cliente",
+        "operationId": "deletar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Cliente removido"
+          }
+        }
+      }
+    },
+    "/clientes": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Buscar todos os clientes",
+        "description": "Retorna todos os clientes cadastrados",
+        "operationId": "buscarTodos",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Cadastrar cliente",
+        "description": "Cadastra um novo cliente",
+        "operationId": "inserir",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Cliente criado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/buscar": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "operationId": "buscarPorNome",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cliente": {
+        "required": [
+          "nome"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do cliente",
+            "format": "int64",
+            "example": 1
+          },
+          "nome": {
+            "maxLength": 100,
+            "minLength": 3,
+            "type": "string",
+            "description": "Nome do cliente",
+            "example": "Maria Oliveira"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/Endereco"
+          }
+        },
+        "description": "Representa um cliente"
+      },
+      "Endereco": {
+        "type": "object",
+        "properties": {
+          "cep": {
+            "type": "string"
+          },
+          "logradouro": {
+            "type": "string"
+          },
+          "complemento": {
+            "type": "string"
+          },
+          "bairro": {
+            "type": "string"
+          },
+          "localidade": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "ibge": {
+            "type": "string"
+          },
+          "gia": {
+            "type": "string"
+          },
+          "ddd": {
+            "type": "string"
+          },
+          "siafi": {
+            "type": "string"
+          }
+        },
+        "description": "Endereço do cliente"
+      }
+    }
+  }
+}
