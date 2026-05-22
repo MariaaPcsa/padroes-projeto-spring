@@ -74,4 +74,13 @@ class SwaggerDocumentationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.components.schemas.Cliente").exists());
     }
+    @Test
+    @DisplayName("Deve carregar OpenAPI com paths de clientes")
+    void deveValidarSwaggerCompleto() throws Exception {
+
+        mockMvc.perform(get("/v3/api-docs"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.paths").exists())
+                .andExpect(jsonPath("$.components.schemas").exists());
+    }
 }

@@ -108,7 +108,7 @@ Execute o projeto
 #  🚀 AGORA EXECUTE
 mvn clean install
 #  Windows
-mvnw spring-boot:run
+mvn spring-boot:run
 
 #  Linux/Mac
 ./mvnw spring-boot:run
@@ -201,6 +201,8 @@ Response
 
 # 🧪 Executando testes
 mvn test
+mvn verify
+
 
 # 📊 Relatório Jacoco
 

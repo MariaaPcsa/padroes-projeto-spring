@@ -1,5 +1,6 @@
 package com.maria.padroes_projeto_spring.service.impl;
 
+import com.maria.padroes_projeto_spring.exception.ClienteNotFoundException;
 import com.maria.padroes_projeto_spring.model.Cliente;
 import com.maria.padroes_projeto_spring.model.Endereco;
 import com.maria.padroes_projeto_spring.repository.ClienteRepository;
@@ -8,7 +9,6 @@ import com.maria.padroes_projeto_spring.service.ClienteService;
 import com.maria.padroes_projeto_spring.service.ViaCepService;
 
 import jakarta.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +38,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente buscarPorId(Long id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() ->
+                        new ClienteNotFoundException("Cliente não encontrado com id: " + id)
+                );
     }
 
     @Override
@@ -50,11 +52,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public Cliente atualizar(Long id, Cliente cliente) {
-
         buscarPorId(id);
-
         cliente.setId(id);
-
         return salvarClienteComCep(cliente);
     }
 
@@ -62,29 +61,44 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public void deletar(Long id) {
 
-        buscarPorId(id);
+        if (!clienteRepository.existsById(id)) {
+            throw new ClienteNotFoundException("Cliente não encontrado com id: " + id);
+        }
 
         clienteRepository.deleteById(id);
     }
 
     private Cliente salvarClienteComCep(Cliente cliente) {
 
+        if (cliente.getEndereco() == null || cliente.getEndereco().getCep() == null) {
+            throw new IllegalArgumentException("CEP inválido");
+        }
+
         String cep = cliente.getEndereco().getCep().replaceAll("\\D", "");
 
         Endereco endereco = enderecoRepository.findById(cep)
                 .orElseGet(() -> {
-                    Endereco novoEndereco = viaCepService.consultarCep(cep);
-                    return enderecoRepository.save(novoEndereco);
+                    Endereco novo = viaCepService.consultarCep(cep);
+                    return enderecoRepository.save(novo);
                 });
 
         cliente.setEndereco(endereco);
 
         return clienteRepository.save(cliente);
     }
+
     @Override
     public List<Cliente> buscarPorNome(String nome) {
 
-        return clienteRepository
-                .findByNomeContainingIgnoreCase(nome);
+        List<Cliente> clientes =
+                clienteRepository.findByNomeContainingIgnoreCase(nome);
+
+        if (clientes == null || clientes.isEmpty()) {
+            throw new ClienteNotFoundException(
+                    "Cliente não encontrado com nome: " + nome
+            );
+        }
+
+        return clientes;
     }
 }
